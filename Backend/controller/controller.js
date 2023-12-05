@@ -95,7 +95,7 @@ export const GetConversations = (req, res) => {
 };
 
 export const GetMessages = (req, res) => {
-  Message.find({ conversationId: req.body.conversationId })
+  Message.find({ conversationId: req.query.conversationId })
     .then((messages, err) => {
       res.send({ messages: messages });
     })
