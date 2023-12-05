@@ -9,6 +9,14 @@ export const UserRegistration = (req, res) => {
   User.find({ isAdmin: true })
     .then((records, err) => {
       if (records.length == 0) {
+        const user = new User({
+          email: req.body.email,
+          name: req.body.name,
+          _id: randomUUID(),
+          isAdmin: true,
+          createdOn: Math.floor(Date.now() / 1000),
+        });
+        user.save();
         res.send("no admin created");
         res.end();
         return;
@@ -77,7 +85,7 @@ export const SendMessage = (req, res) => {
 };
 
 export const GetConversations = (req, res) => {
-  Conversation.find({ users: req.body.userId })
+  Conversation.find({ users: req.query.userId })
     .then((conversation, err) => {
       res.send({ conversations: conversation });
     })
