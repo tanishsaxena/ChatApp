@@ -22,7 +22,7 @@ export const UserRegistration = (req, res) => {
         return;
       }
 
-      const adminId = records[0]._id;
+      const admin = records[0];
 
       User.find({ email: req.body.email }).then((record, err) => {
         let user;
@@ -41,7 +41,7 @@ export const UserRegistration = (req, res) => {
             lastMessage: "",
             lastMessageSentOn: 0,
             unReadCount: 0,
-            users: [adminId, user._id],
+            users: [admin, user],
           });
 
           conversation.save();
